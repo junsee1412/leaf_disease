@@ -15,87 +15,38 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="3" column="0">
-     <widget class="QRadioButton" name="r_device">
-      <property name="focusPolicy">
-       <enum>Qt::NoFocus</enum>
-      </property>
-      <property name="text">
-       <string>Device</string>
-      </property>
-      <property name="checked">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="8" column="0">
-     <widget class="QPushButton" name="btn_play">
-      <property name="focusPolicy">
-       <enum>Qt::NoFocus</enum>
-      </property>
-      <property name="text">
-       <string>Play</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="0" colspan="2">
-     <widget class="QLineEdit" name="txt_path">
-      <property name="focusPolicy">
-       <enum>Qt::NoFocus</enum>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="0" colspan="2">
-     <widget class="QComboBox" name="cb_device">
-      <property name="focusPolicy">
-       <enum>Qt::NoFocus</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="8" column="1">
-     <widget class="QPushButton" name="btn_stop">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::NoFocus</enum>
-      </property>
-      <property name="text">
-       <string>Stop</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0" colspan="2">
-     <widget class="QLabel" name="lb_display">
-      <property name="focusPolicy">
-       <enum>Qt::NoFocus</enum>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="1">
-     <widget class="QRadioButton" name="r_source">
-      <property name="focusPolicy">
-       <enum>Qt::NoFocus</enum>
-      </property>
-      <property name="text">
-       <string>Source</string>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="0" colspan="2">
-     <widget class="QPushButton" name="btn_path">
-      <property name="focusPolicy">
-       <enum>Qt::NoFocus</enum>
-      </property>
-      <property name="text">
-       <string>Search</string>
-      </property>
+    <item row="1" column="1" colspan="2">
+     <widget class="QGroupBox" name="groupBox">
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="2" column="0">
+        <widget class="QPushButton" name="btn_directory">
+         <property name="text">
+          <string>Directory</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLineEdit" name="linePath">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QTableWidget" name="tableWidget">
+         <column>
+          <property name="text">
+           <string>Image</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Disease</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
    </layout>
@@ -113,246 +64,5 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>btn_play</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>btn_stop</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>251</x>
-     <y>455</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>370</x>
-     <y>459</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btn_play</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>btn_play</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>159</x>
-     <y>452</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>159</x>
-     <y>452</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btn_stop</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>btn_stop</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>473</x>
-     <y>452</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>473</x>
-     <y>452</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btn_stop</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>btn_play</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>473</x>
-     <y>452</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>159</x>
-     <y>452</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>r_device</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>cb_device</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>159</x>
-     <y>399</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>316</x>
-     <y>424</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>r_source</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>btn_path</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>473</x>
-     <y>339</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>316</x>
-     <y>396</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>r_source</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>txt_path</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>473</x>
-     <y>339</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>316</x>
-     <y>366</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btn_play</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>r_device</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>162</x>
-     <y>452</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>162</x>
-     <y>339</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btn_play</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>r_source</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>162</x>
-     <y>452</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>481</x>
-     <y>339</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btn_stop</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>r_device</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>481</x>
-     <y>452</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>162</x>
-     <y>339</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btn_stop</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>r_source</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>481</x>
-     <y>452</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>481</x>
-     <y>339</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btn_play</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>cb_device</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>162</x>
-     <y>452</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>321</x>
-     <y>424</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btn_play</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>btn_path</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>162</x>
-     <y>452</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>321</x>
-     <y>396</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btn_stop</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>btn_path</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>481</x>
-     <y>452</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>321</x>
-     <y>396</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btn_stop</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>cb_device</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>481</x>
-     <y>452</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>321</x>
-     <y>424</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

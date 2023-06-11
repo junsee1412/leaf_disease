@@ -19,42 +19,27 @@ class Ui_App(object):
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName("gridLayout")
-        self.r_device = QtWidgets.QRadioButton(self.centralwidget)
-        self.r_device.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.r_device.setChecked(True)
-        self.r_device.setObjectName("r_device")
-        self.gridLayout.addWidget(self.r_device, 3, 0, 1, 1)
-        self.btn_play = QtWidgets.QPushButton(self.centralwidget)
-        self.btn_play.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.btn_play.setObjectName("btn_play")
-        self.gridLayout.addWidget(self.btn_play, 8, 0, 1, 1)
-        self.txt_path = QtWidgets.QLineEdit(self.centralwidget)
-        self.txt_path.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.txt_path.setReadOnly(True)
-        self.txt_path.setObjectName("txt_path")
-        self.gridLayout.addWidget(self.txt_path, 5, 0, 1, 2)
-        self.cb_device = QtWidgets.QComboBox(self.centralwidget)
-        self.cb_device.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.cb_device.setObjectName("cb_device")
-        self.gridLayout.addWidget(self.cb_device, 7, 0, 1, 2)
-        self.btn_stop = QtWidgets.QPushButton(self.centralwidget)
-        self.btn_stop.setEnabled(False)
-        self.btn_stop.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.btn_stop.setObjectName("btn_stop")
-        self.gridLayout.addWidget(self.btn_stop, 8, 1, 1, 1)
-        self.lb_display = QtWidgets.QLabel(self.centralwidget)
-        self.lb_display.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.lb_display.setText("")
-        self.lb_display.setObjectName("lb_display")
-        self.gridLayout.addWidget(self.lb_display, 0, 0, 1, 2)
-        self.r_source = QtWidgets.QRadioButton(self.centralwidget)
-        self.r_source.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.r_source.setObjectName("r_source")
-        self.gridLayout.addWidget(self.r_source, 3, 1, 1, 1)
-        self.btn_path = QtWidgets.QPushButton(self.centralwidget)
-        self.btn_path.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.btn_path.setObjectName("btn_path")
-        self.gridLayout.addWidget(self.btn_path, 6, 0, 1, 2)
+        self.groupBox = QtWidgets.QGroupBox(self.centralwidget)
+        self.groupBox.setObjectName("groupBox")
+        self.gridLayout_2 = QtWidgets.QGridLayout(self.groupBox)
+        self.gridLayout_2.setObjectName("gridLayout_2")
+        self.btn_directory = QtWidgets.QPushButton(self.groupBox)
+        self.btn_directory.setObjectName("btn_directory")
+        self.gridLayout_2.addWidget(self.btn_directory, 2, 0, 1, 1)
+        self.linePath = QtWidgets.QLineEdit(self.groupBox)
+        self.linePath.setReadOnly(True)
+        self.linePath.setObjectName("linePath")
+        self.gridLayout_2.addWidget(self.linePath, 1, 0, 1, 1)
+        self.tableWidget = QtWidgets.QTableWidget(self.groupBox)
+        self.tableWidget.setObjectName("tableWidget")
+        self.tableWidget.setColumnCount(2)
+        self.tableWidget.setRowCount(0)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(1, item)
+        self.gridLayout_2.addWidget(self.tableWidget, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.groupBox, 1, 1, 1, 2)
         App.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(App)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 644, 31))
@@ -65,28 +50,13 @@ class Ui_App(object):
         App.setStatusBar(self.statusbar)
 
         self.retranslateUi(App)
-        self.btn_play.clicked['bool'].connect(self.btn_stop.setDisabled) # type: ignore
-        self.btn_play.clicked['bool'].connect(self.btn_play.setEnabled) # type: ignore
-        self.btn_stop.clicked['bool'].connect(self.btn_stop.setEnabled) # type: ignore
-        self.btn_stop.clicked['bool'].connect(self.btn_play.setDisabled) # type: ignore
-        self.r_device.toggled['bool'].connect(self.cb_device.setVisible) # type: ignore
-        self.r_source.toggled['bool'].connect(self.btn_path.setVisible) # type: ignore
-        self.r_source.toggled['bool'].connect(self.txt_path.setVisible) # type: ignore
-        self.btn_play.clicked['bool'].connect(self.r_device.setEnabled) # type: ignore
-        self.btn_play.clicked['bool'].connect(self.r_source.setEnabled) # type: ignore
-        self.btn_stop.clicked['bool'].connect(self.r_device.setDisabled) # type: ignore
-        self.btn_stop.clicked['bool'].connect(self.r_source.setDisabled) # type: ignore
-        self.btn_play.clicked['bool'].connect(self.cb_device.setEnabled) # type: ignore
-        self.btn_play.clicked['bool'].connect(self.btn_path.setEnabled) # type: ignore
-        self.btn_stop.clicked['bool'].connect(self.btn_path.setDisabled) # type: ignore
-        self.btn_stop.clicked['bool'].connect(self.cb_device.setDisabled) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(App)
 
     def retranslateUi(self, App):
         _translate = QtCore.QCoreApplication.translate
         App.setWindowTitle(_translate("App", "Leaf Doctor"))
-        self.r_device.setText(_translate("App", "Device"))
-        self.btn_play.setText(_translate("App", "Play"))
-        self.btn_stop.setText(_translate("App", "Stop"))
-        self.r_source.setText(_translate("App", "Source"))
-        self.btn_path.setText(_translate("App", "Search"))
+        self.btn_directory.setText(_translate("App", "Directory"))
+        item = self.tableWidget.horizontalHeaderItem(0)
+        item.setText(_translate("App", "Image"))
+        item = self.tableWidget.horizontalHeaderItem(1)
+        item.setText(_translate("App", "Disease"))
