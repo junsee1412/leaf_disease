@@ -1,8 +1,9 @@
 import sys, os, cv2
 from PyQt5.QtCore import Qt, QObject, QThread, pyqtSignal, pyqtSlot
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QFileDialog, QTableWidgetItem
+from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QWidget, QFileDialog, QTableWidgetItem
 from PyQt5.QtGui import QImage, QPixmap
 from gui import Ui_App
+from gui import Ui_Dialog
 
 
 class App(QWidget):
@@ -11,16 +12,17 @@ class App(QWidget):
         self.main_win = QMainWindow()
         self.mwg = Ui_App()
         self.mwg.setupUi(self.main_win)
+
+        self.dlg = Ui_Dialog()
+        self.dialog = QDialog()
+        self.dlg.setupUi(self.dialog)
+
         self.rootdir = None
         self.list_images = None
         self.list_index = 0
 
         self.mwg.btn_directory.clicked.connect(self.select_directory)
-        self.mwg.tableWidget.cellClicked.connect(self.cell_current)
-    
-    def cell_current(self):
-        current_row = self.mwg.tableWidget.currentRow()
-        print(current_row)
+        self.mwg.tableWidget.cellClicked.connect(self.display_images)
     
     def select_directory(self):
         self.rootdir = QFileDialog.getExistingDirectory(self.main_win, 'Select Directory')
@@ -34,20 +36,18 @@ class App(QWidget):
     
     def show_table_widget(self):
         self.mwg.tableWidget.setRowCount(len(self.list_images))
-        # self.mwg.tableWidget.currentColumn()
         for i in range(len(self.list_images)):
-            item = QTableWidgetItem(self.list_images[i])
-            self.mwg.tableWidget.setItem(i, 0, item)
+            item = self.list_images[i]
+            self.mwg.tableWidget.setItem(i, 0, QTableWidgetItem(item))
+            self.mwg.tableWidget.setItem(i, 1, QTableWidgetItem(os.path.join(self.rootdir ,item)))
     
     def display_images(self):
-        file = self.list_images[self.list_index]
+        index = self.mwg.tableWidget.currentRow()
+        file = self.list_images[index]
         Image = QPixmap(self.rootdir + '/' + file)
-        Image = Image.scaled(
-            self.mwg.lb_display.width(),
-            self.mwg.lb_display.height(),
-            Qt.KeepAspectRatio
-        )
-        self.mwg.lb_display.setPixmap(Image)
+        Image = Image.scaled(450, 600, Qt.KeepAspectRatio)
+        self.dlg.label_display.setPixmap(Image)
+        self.dialog.show()
 
     def get_images(self):
         list_files = os.listdir(self.rootdir)
