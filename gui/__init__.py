@@ -1,3 +1,2 @@
-from .set_model import Ui_SetModel
 from .app_ui import Ui_App
-from .form import Ui_Dialog
+from .dialog_show import Ui_Dialog
