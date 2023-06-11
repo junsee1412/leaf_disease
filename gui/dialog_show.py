@@ -18,13 +18,16 @@ class Ui_Dialog(object):
         self.gridLayout = QtWidgets.QGridLayout(Dialog)
         self.gridLayout.setObjectName("gridLayout")
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem, 1, 0, 1, 1)
+        self.gridLayout.addItem(spacerItem, 3, 1, 1, 1)
         self.btn_close = QtWidgets.QPushButton(Dialog)
         self.btn_close.setObjectName("btn_close")
-        self.gridLayout.addWidget(self.btn_close, 1, 1, 1, 1)
+        self.gridLayout.addWidget(self.btn_close, 3, 2, 1, 1)
+        self.label_disease = QtWidgets.QLabel(Dialog)
+        self.label_disease.setObjectName("label_disease")
+        self.gridLayout.addWidget(self.label_disease, 3, 0, 1, 1)
         self.label_display = QtWidgets.QLabel(Dialog)
         self.label_display.setObjectName("label_display")
-        self.gridLayout.addWidget(self.label_display, 0, 0, 1, 2)
+        self.gridLayout.addWidget(self.label_display, 0, 0, 1, 3)
 
         self.retranslateUi(Dialog)
         self.btn_close.clicked.connect(Dialog.close) # type: ignore
@@ -34,4 +37,5 @@ class Ui_Dialog(object):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Image"))
         self.btn_close.setText(_translate("Dialog", "Close"))
+        self.label_disease.setText(_translate("Dialog", "TextLabel"))
         self.label_display.setText(_translate("Dialog", "TextLabel"))
