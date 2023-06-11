@@ -4,7 +4,10 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QWidget, QFileDi
 from PyQt5.QtGui import QImage, QPixmap
 from gui import Ui_App
 from gui import Ui_Dialog
-
+import numpy as np
+from imutils import paths
+from keras.models import load_model
+# from tensorflow.keras.utils import img_to_array
 
 class App(QWidget):
     def __init__(self, ):
@@ -21,9 +24,13 @@ class App(QWidget):
         self.list_images = None
         self.list_index = 0
 
+        print("[INFO] Nạp model mạng pre-trained ...")
+        self.model = load_model("modVGGNet.hdf5")
+
         self.mwg.btn_directory.clicked.connect(self.select_directory)
         self.mwg.tableWidget.cellClicked.connect(self.display_images)
-    
+        self.mwg.btn_predict.clicked.connect(self.predict_directory)
+
     def select_directory(self):
         self.rootdir = QFileDialog.getExistingDirectory(self.main_win, 'Select Directory')
         try:
@@ -51,6 +58,7 @@ class App(QWidget):
 
     def get_images(self):
         list_files = os.listdir(self.rootdir)
+        print(self.rootdir)
         new_list = []
         for file in list_files:
             fi, ext = os.path.splitext(file)
@@ -62,6 +70,37 @@ class App(QWidget):
     def show(self):
         self.main_win.show()
 
+    def predict_directory(self):
+        from preprocessing import imagetoarraypreprocessor
+        from preprocessing import simplepreprocessor
+        from datasets import simpledatasetloader
+        classLabels = ["Cercospora", "Healthy", "Miner", "Phoma", "Rust"]
+
+        #Lấy danh sách các hình ảnh trong tập dữ liệu sau đó lấy mẫu ngẫu nhiên
+        # ảnh theo chỉ số để đưa vào đường dẫn hình ảnh
+        print("[INFO] Đang nạp ảnh mẫu để phân lớp (dự đoán)...")
+        imagePaths = np.array(list(paths.list_images(self.rootdir))) #xác định số file trong dataset
+        idxs = range(0, len(imagePaths)) # Lấy tất cả các chỉ số idxs của ảnh
+        imagePaths = imagePaths[idxs]
+
+        sp = simplepreprocessor.SimplePreprocessor(32, 32) # Thiết lập kích thước ảnh 32 x 32
+        iap = imagetoarraypreprocessor.ImageToArrayPreprocessor() # Gọi hàm để chuyển ảnh sang mảng
+
+
+        # Nạp dataset từ đĩa rồi co dãn mức xám của pixel trong vùng [0,1]
+        sdl = simpledatasetloader.SimpleDatasetLoader(preprocessors=[sp, iap])
+        (data, labels) = sdl.load(imagePaths)
+        data = data.astype("float") / 255.0
+
+        # Dự đoán
+        print("[INFO] Đang dự đoán để phân lớp...")
+        preds = self.model.predict(data, batch_size=32).argmax(axis=1)
+
+        # Lặp qua tất cả các file ảnh trong imagePaths
+        # Nạp ảnh ví dụ --> Vẽ dự đoán --> Hiển thị ảnh
+        for (i, imagePath) in enumerate(imagePaths):
+            self.mwg.tableWidget.setItem(i, 2, QTableWidgetItem(classLabels[preds[i]]))
+            
 if __name__ == "__main__":
     app = QApplication([])
     form = App()
