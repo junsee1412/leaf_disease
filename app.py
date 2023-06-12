@@ -130,7 +130,6 @@ class App(QWidget):
         self.thread_pred = QThread()
         self.worker.moveToThread(self.thread_pred)
 
-        print("[Starting]")
         self.worker.progress.connect(self.mwg.statusbar.showMessage)
         self.worker.list_pred.connect(self.set_preds)
         self.worker.finished.connect(self.process_done)
@@ -138,7 +137,6 @@ class App(QWidget):
         self.thread_pred.started.connect(self.worker.run)
 
         self.thread_pred.start()
-        print("[Started]")
     
     @pyqtSlot(list)
     def set_preds(self, preds :list):
