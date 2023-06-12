@@ -23,7 +23,13 @@ class Worker(QObject):
         from preprocessing import simplepreprocessor
         from preprocessing import simpledatasetloader
 
-        classLabels = ["Cercospora", "Healthy", "Miner", "Phoma", "Rust"]
+        # classLabels = ["Cercospora", "Healthy", "Miner", "Phoma", "Rust"]
+        classLabels = ['Apple Black rot', 'Apple cedar rust', 'Apple Healthy', 'Apple Scab', 'Bell pepper Bacterial spot', 'Bell pepper Healthy',
+                'Cherry Healthy', 'Cherry Powdery mildew', 'Corn Common rust', 'Corn Gray leaf spot', 'Corn Healthy', 'Corn Northern Leaf Blight',
+                'Grape Black Measles', 'Grape Black rot', 'Grape Healthy', 'Grape Isariopsis Leaf Spot', 'Peach Bacterial spot', 'Peach Healthy',
+                'Potato Early blight', 'Potato Healthy', 'Potato Late blight', 'Tomato Bacterial spot', 'Tomato Early blight', 'Tomato Healthy',
+                'Tomato Late blight', 'Tomato Leaf Mold', 'Tomato Mosaic virus', 'Tomato Septoria leaf spot', 'Tomato Spider mites', 'Tomato Target Spot',
+                'Tomato Yellow Leaf Curl Virus']
 
         self.progress.emit("Nạp model mạng pre-trained ...")
         print("Nạp model mạng pre-trained ...")
