@@ -1,5 +1,5 @@
  # import các gói thư viện cần thiết
-from tensorflow.keras.utils import img_to_array
+from keras.utils import img_to_array
 
 class ImageToArrayPreprocessor:  # Tạo lớp để chuyển ảnh --> mảng
     def __init__(self, dataFormat=None):
